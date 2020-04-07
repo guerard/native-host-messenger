@@ -4,12 +4,18 @@
   "description": "Simple library for writing node apps compatible with native host messaging in WebExtensions",
   "main": "./out/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Adrien Guerard",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^12.6.1",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/jest": "^25.2.1",
+    "@types/node": "~12.6.1",
+    "babel-jest": "^25.2.6",
+    "jest": "^25.2.7",
     "typescript": "^3.8.3"
   },
   "engines": {
