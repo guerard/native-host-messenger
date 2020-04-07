@@ -2,7 +2,8 @@ import stream from 'stream';
 import { readUInt32 } from './native';
 
 /**
- * 
+ * Converts byte messages coming from WebExtensions and converts them to in-memory
+ * JS objects.
  */
 export class InboundTransform extends stream.Transform {
     private buffer: Buffer = Buffer.alloc(0);
