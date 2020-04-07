@@ -5,7 +5,7 @@ import { readUInt32 } from './native';
  * 
  */
 export class InboundTransform extends stream.Transform {
-    private buffer: Buffer;
+    private buffer: Buffer = Buffer.alloc(0);
     private messageLength: number | null | undefined;
 
     constructor() {
@@ -13,8 +13,6 @@ export class InboundTransform extends stream.Transform {
             readableObjectMode: true,
             writableObjectMode: false,
         });
-
-        this.buffer = Buffer.alloc(0);
     }
 
     _transform(chunk: Buffer, encoding: string, done: () => void): void {
