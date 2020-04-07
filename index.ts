@@ -1,16 +1,21 @@
-import { InboundTransform } from './lib/transform-stream';
+import { InboundTransform, OutboundTransform } from './lib/transform-stream';
 
 export interface Handler {
     (message: any, sendMessage: (out: any) => void): void;
 }
 
 export class NativeHostMessenger {
-    constructor(private readonly handler: Handler) {
-        // TODO replace stub
-        const sendMessage: (out: any) => void = () => { };
+    private readonly inbound = new InboundTransform();
+    private readonly outbound = new OutboundTransform();
+    private readonly sendMessage = (message: any): void => {
+        this.outbound.write(message);
+    };
 
-        process.stdin.pipe(new InboundTransform()).on('data', (message) => {
-            setImmediate(() => this.handler(message, sendMessage));
+    constructor(private readonly handler: Handler) {
+        this.outbound.pipe(process.stdout);
+
+        process.stdin.pipe(this.inbound).on('data', (message) => {
+            setImmediate(() => this.handler(message, this.sendMessage));
         });
     }
 }

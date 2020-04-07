@@ -1,5 +1,5 @@
 import stream from 'stream';
-import { readUInt32 } from './native';
+import { readUInt32, writeUInt32 } from './native';
 
 /**
  * Converts byte messages coming from WebExtensions and converts them to in-memory
@@ -32,13 +32,31 @@ export class InboundTransform extends stream.Transform {
                 const message = this.buffer.slice(0, this.messageLength);
                 this.buffer = this.buffer.slice(this.messageLength);
                 this.messageLength = null;
-                setImmediate(() => this.push(JSON.parse(message.toString())));
+                this.push(JSON.parse(message.toString()));
                 setImmediate(consumeBuf);
                 return;
             }
             done();
         };
-        
+
         consumeBuf();
+    }
+}
+
+export class OutboundTransform extends stream.Transform {
+    constructor() {
+        super({
+            readableObjectMode: false,
+            writableObjectMode: true,
+        });
+    }
+
+    _transform(chunk: any, encoding: string, done: () => void): void {
+        const messageBuf = Buffer.from(JSON.stringify(chunk));
+        const messageLenBuf = Buffer.alloc(4);
+        writeUInt32(messageLenBuf, messageBuf.length, 0);
+        this.push(messageLenBuf);
+        this.push(messageBuf);
+        done();
     }
 }
