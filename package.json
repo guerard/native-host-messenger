@@ -1,11 +1,21 @@
 {
   "name": "native-host-messenger",
   "version": "1.0.0",
-  "description": "Simple to use library for writing native host IPC for WebExtensions",
-  "main": "index.js",
+  "description": "Simple library for writing node apps compatible with native host messaging in WebExtensions",
+  "main": "./out/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Adrien Guerard",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^12.6.1",
+    "typescript": "^3.8.3"
+  },
+  "engines": {
+    "node": ">=12.6.1"
+  },
+  "files": [
+    "./out/**/*"
+  ]
 }
