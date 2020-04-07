@@ -1,5 +1,4 @@
 import { InboundTransform, OutboundTransform } from './lib/transform-stream';
-import { Readable, Writable } from 'stream';
 
 export interface Handler {
     (message: any, sendMessage: (out: any) => void): void;
@@ -14,8 +13,8 @@ export class NativeHostMessenger {
 
     constructor(
         private readonly handler: Handler,
-        private readonly stdin: Readable = process.stdin,
-        private readonly stdout: Writable = process.stdout,
+        private readonly stdin: NodeJS.ReadableStream = process.stdin,
+        private readonly stdout: NodeJS.WritableStream = process.stdout,
     ) {
 
         this.outbound.pipe(this.stdout);
