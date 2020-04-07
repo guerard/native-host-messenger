@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "Simple library for writing node apps compatible with native host messaging in WebExtensions",
   "main": "./out/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/guerard/native-host-messenger"
+  },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com/"
+  },
   "scripts": {
     "prepublishOnly": "npx tsc",
     "test": "jest"
