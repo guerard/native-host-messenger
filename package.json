@@ -4,6 +4,7 @@
   "description": "Simple library for writing node apps compatible with native host messaging in WebExtensions",
   "main": "./out/index.js",
   "scripts": {
+    "prepublishOnly": "npx tsc",
     "test": "jest"
   },
   "author": "Adrien Guerard",
@@ -22,6 +23,6 @@
     "node": ">=12.6.1"
   },
   "files": [
-    "./out/**/*"
+    "out/**/*"
   ]
 }
