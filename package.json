@@ -11,8 +11,8 @@
     "registry":"https://npm.pkg.github.com/"
   },
   "scripts": {
-    "prepublishOnly": "npx tsc",
-    "test": "jest"
+    "prepublishOnly": "rm -rf out; npx tsc",
+    "test": "rm -rf out; npx tsc && jest"
   },
   "author": "Adrien Guerard",
   "license": "ISC",
@@ -31,5 +31,8 @@
   },
   "files": [
     "out/**/*"
-  ]
+  ],
+  "jest": {
+    "testPathIgnorePatterns": ["/node_modules/", "<rootDir>/out/"]
+  }
 }
